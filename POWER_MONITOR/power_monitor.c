@@ -183,7 +183,7 @@ float readVoltage(int iic_fd, unsigned char deviceAddress, unsigned char pageAdd
 	float voltage;
 	int status;
 
-	if (ioctl(iic_fd, I2C_SLAVE, deviceAddress) < 0) {
+	if (ioctl(iic_fd, I2C_SLAVE, 0x70) < 0) {
 		printf("ERROR: Unable to set I2C slave address 0x%02X\n", deviceAddress);
 		exit(1);
 	}
@@ -209,7 +209,7 @@ float readCurrent(int iic_fd, unsigned char deviceAddress, unsigned char pageAdd
 	double current;
 	int status;
 
-	if (ioctl(iic_fd, I2C_SLAVE, deviceAddress) < 0) {
+	if (ioctl(iic_fd, I2C_SLAVE, 0x70) < 0) {
 		printf("ERROR: Unable to set I2C slave address 0x%02X\n", deviceAddress);
 		exit(1);
 	}
@@ -251,9 +251,9 @@ int main(void)
 	double totalPower = 0;
 	const int count = 50;
   
-	iic_fd = open("/dev/i2c-9", O_RDWR);
+	iic_fd = open("/dev/i2c-1", O_RDWR);
 	if (iic_fd < 0) {
-		printf("ERROR: Unable to open /dev/i2c-9 for PMBus access: %d\n", iic_fd);
+		printf("ERROR: Unable to open /dev/i2c-1 for PMBus access: %d\n", iic_fd);
 		exit(1);
 	}  
 
